@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Davis of Jones</title>
+<meta name="description" content="Davis of Jones — jogo de batalhas navais pirata. Baixe grátis, domine os mares, guildas, eventos e chefes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@600;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* =====================================================================
+   CONFIGURAÇÃO RÁPIDA: troque os dados no bloco <script> lá embaixo
+   (CHAVE PIX, WhatsApp, Discord e os pacotes da loja).
+   ===================================================================== */
+:root{
+  --bg:#0a0d12; --bg2:#121820; --card:#171f29; --line:#3a2e1c;
+  --gold:#e8b85a; --gold2:#f7d98b; --text:#e9e4d8; --muted:#a59f92; --red:#c0392b; --green:#3fae5a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Inter,system-ui,sans-serif}
+a{color:var(--gold2)}
+img{max-width:100%;display:block}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+
+/* topo */
+header{position:sticky;top:0;z-index:20;background:rgba(10,13,18,.88);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;gap:16px;height:64px}
+.nav .brand{font-family:"Pirata One",serif;font-size:28px;color:var(--gold);text-decoration:none;letter-spacing:.5px;white-space:nowrap}
+.nav nav{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap}
+.nav nav a{color:var(--text);text-decoration:none;font-weight:600;padding:8px 12px;border-radius:8px}
+.nav nav a:hover{background:#1c2430;color:var(--gold2)}
+@media (max-width:720px){.nav nav a.hide-m{display:none}.nav .brand{font-size:22px}}
+
+/* capa */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero::before{content:"";position:absolute;inset:0;background:url(img/fundo.jpg) center/cover;opacity:.35}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,13,18,.2),var(--bg))}
+.hero .wrap{position:relative;z-index:1;display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center;padding-top:56px;padding-bottom:64px}
+.hero h1{font-family:"Pirata One",serif;font-size:clamp(44px,7vw,78px);line-height:1;margin:0 0 12px;color:var(--gold);text-shadow:0 3px 0 #2a1a05,0 0 30px rgba(232,184,90,.25)}
+.hero p.lead{font-size:18px;color:#d8d1c2;max-width:520px}
+.hero .banner{border:2px solid var(--line);border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr}.hero .banner{order:-1}}
+
+.btn{display:inline-flex;align-items:center;gap:10px;font-weight:800;font-family:Cinzel,serif;letter-spacing:.5px;text-decoration:none;border-radius:12px;padding:14px 26px;border:2px solid #7a5a1e;
+  background:linear-gradient(180deg,#f4cf74,#c98d2c);color:#2a1600;box-shadow:0 6px 0 #6b4510,0 10px 24px rgba(0,0,0,.4);cursor:pointer;font-size:18px}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:translateY(3px);box-shadow:0 3px 0 #6b4510}
+.btn.ghost{background:transparent;color:var(--gold2);box-shadow:none;border-color:var(--line)}
+.btn.small{padding:10px 18px;font-size:15px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 10px}
+.note{font-size:13px;color:var(--muted)}
+
+/* seções */
+section{padding:64px 0;border-bottom:1px solid #161c24}
+h2{font-family:Cinzel,serif;font-weight:800;font-size:clamp(26px,4vw,36px);color:var(--gold);margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 28px}
+.grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card h3{margin:0 0 6px;font-family:Cinzel,serif;color:var(--gold2);font-size:19px}
+.card p{margin:0;color:#cfc8b9}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;background:#2a2112;color:var(--gold2);border:1px solid var(--line);margin-bottom:10px}
+
+/* passos */
+.steps{counter-reset:s;display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.steps li{list-style:none;overflow-wrap:anywhere;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 20px 20px 64px;position:relative}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:18px;top:18px;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(180deg,#f4cf74,#c98d2c);color:#2a1600;font-weight:800}
+.warn{margin-top:18px;background:#2a1414;border:1px solid #6b2a22;border-radius:12px;padding:14px 16px;color:#f2d3cd}
+
+/* loja */
+.shop{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.pack{background:linear-gradient(180deg,#1b2430,#141b24);border:1px solid var(--line);border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px;position:relative}
+.pack.best{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset,0 10px 30px rgba(232,184,90,.12)}
+.pack .ribbon{position:absolute;top:14px;right:14px;font-size:11px;font-weight:800;background:var(--gold);color:#2a1600;padding:3px 8px;border-radius:6px}
+.pack .ico{width:64px;height:64px;border-radius:12px;display:grid;place-items:center;background:#0f141b;border:1px solid var(--line)}
+.pack .ico img{width:48px;height:48px;object-fit:contain}
+.pearl{width:34px;height:34px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff,#d9e6f2 35%,#9fb6cc 70%,#6c8099);box-shadow:0 0 12px rgba(200,225,255,.5)}
+.pack h3{margin:0;font-family:Cinzel,serif;color:var(--gold2)}
+.pack .qty{color:#cfc8b9;margin:0}
+.pack .price{font-size:30px;font-weight:800;color:#fff;margin-top:auto}
+.pack .price small{font-size:14px;color:var(--muted);font-weight:600}
+
+/* faq / regras */
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:10px}
+details summary{cursor:pointer;font-weight:700;color:var(--gold2)}
+details p,details li{color:#cfc8b9}
+
+footer{padding:32px 0;color:var(--muted);font-size:14px}
+footer .wrap{display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+
+/* janela de compra */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.open{display:flex}
+.box{background:var(--bg2);border:1px solid var(--gold);border-radius:16px;max-width:520px;width:100%;padding:24px;position:relative;max-height:92vh;overflow:auto}
+.box h3{margin:0 0 4px;font-family:Cinzel,serif;color:var(--gold)}
+.box .x{position:absolute;top:10px;right:12px;background:none;border:0;color:var(--muted);font-size:26px;cursor:pointer}
+.box label{display:block;font-weight:700;margin:14px 0 6px}
+.box input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#0d1218;color:var(--text);font-size:16px}
+.pix{display:flex;gap:8px;align-items:stretch}
+.pix code{flex:1;background:#0d1218;border:1px dashed var(--gold);border-radius:10px;padding:12px;word-break:break-all;color:var(--gold2)}
+.box ol{padding-left:20px;color:#cfc8b9}
+.ok{color:var(--green);font-weight:700;font-size:14px;min-height:20px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#inicio">Davis of Jones</a>
+    <nav>
+      <a href="#baixar">Baixar</a>
+      <a href="#novidades" class="hide-m">Novidades</a>
+      <a href="#loja">Loja</a>
+      <a href="#regras" class="hide-m">Regras</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <div class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Davis of Jones</h1>
+        <p class="lead">Comande seu navio, afunde piratas, enfrente chefes lendários e domine as ilhas de guerra com a sua guilda. Grátis para jogar.</p>
+        <div class="cta">
+          <a class="btn" id="btnBaixar" href="#">⬇ Baixar o jogo</a>
+          <a class="btn ghost" href="#loja">Loja de pérolas</a>
+        </div>
+        <p class="note">Windows 10/11 · o launcher baixa e atualiza o jogo sozinho.</p>
+      </div>
+      <img class="banner" src="img/banner.jpg" alt="Davis of Jones">
+    </div>
+  </div>
+
+  <section id="baixar">
+    <div class="wrap">
+      <h2>Como começar</h2>
+      <p class="sub">Leva só alguns minutos.</p>
+      <ol class="steps">
+        <li><b>Baixe o launcher</b><br>Clique em <a href="#" class="lnkBaixar">Baixar o jogo</a> e salve o arquivo <i>DavisOfJones_Launcher.zip</i>.</li>
+        <li><b>Extraia o zip</b><br>Botão direito no arquivo → <b>Extrair tudo</b>. Não abra o launcher de dentro do zip.</li>
+        <li><b>Abra o DavisOfJones.exe</b><br>Ele baixa o jogo (≈ 90 MB) e libera o botão <b>JOGAR AGORA</b>.</li>
+        <li><b>Crie sua conta</b><br>No jogo, use o <b>Registro rápido</b> e entre no servidor oficial.</li>
+      </ol>
+      <div class="warn">⚠️ Se aparecer <b>“O Windows protegeu o computador”</b>, clique em <b>Mais informações → Executar assim mesmo</b>. Isso acontece porque o jogo é novo e ainda não tem assinatura digital da Microsoft.</div>
+    </div>
+  </section>
+
+  <section id="novidades">
+    <div class="wrap">
+      <h2>Novidades</h2>
+      <p class="sub">O que tem de novo nos mares.</p>
+      <div class="grid">
+        <div class="card"><span class="tag">Evento</span><h3>☀ Mapa do Sol</h3><p>Use o Medalhão da Luz, enfrente a frota Sunburst e derrube a Amaterasu (30 milhões de vida). Último tiro ganha o design!</p></div>
+        <div class="card"><span class="tag">Evento</span><h3>❄ Natal</h3><p>Navios Floco de Neve, presentes em dobro e o Boneco de Neve Sombrio escondido em um mapa de cada nível.</p></div>
+        <div class="card"><span class="tag">Guildas</span><h3>Cargos e ilhas de guerra</h3><p>Líder, Conselho e Diplomatas. Domine ilhas, construa torres e receba alertas quando atacarem a sua.</p></div>
+        <div class="card"><span class="tag">Ranking</span><h3>Medalhas por posição</h3><p>Do 1º ao 1.000º: caveiras, flor-de-lis e adagas de ouro, prata e bronze.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="loja">
+    <div class="wrap">
+      <h2>Loja</h2>
+      <p class="sub">Pagamento por PIX. Depois de pagar, envie o comprovante e o seu nome no jogo — as pérolas chegam na sua conta.</p>
+      <div class="shop" id="shop"></div>
+      <p class="note" style="margin-top:18px">Ao comprar você concorda com as <a href="#regras">regras da loja</a>. Menores de 18 anos só com autorização dos pais ou responsáveis.</p>
+    </div>
+  </section>
+
+  <section id="regras">
+    <div class="wrap">
+      <h2>Regras e dúvidas</h2>
+      <p class="sub">Leia antes de comprar.</p>
+      <details open><summary>O que eu estou comprando?</summary>
+        <p>Itens virtuais (pérolas e itens) para usar dentro do jogo Davis of Jones. Eles não têm valor em dinheiro, não podem ser trocados por dinheiro e ficam na conta informada na compra.</p></details>
+      <details><summary>Em quanto tempo recebo?</summary>
+        <p>A entrega é feita por um administrador depois que o comprovante é conferido, normalmente no mesmo dia. Mande o comprovante e o <b>nome exato da sua conta</b> pelo contato da compra.</p></details>
+      <details><summary>Tem reembolso?</summary>
+        <p>Se a entrega não acontecer, devolvemos o valor. Depois que as pérolas forem entregues e usadas, a compra não é reembolsada, salvo nos casos previstos em lei.</p></details>
+      <details><summary>Posso perder o que comprei?</summary>
+        <p>Contas banidas por trapaça, uso de programas ilegais ou ofensas graves perdem o acesso, sem reembolso. O jogo está em desenvolvimento: valores e itens podem mudar com as atualizações.</p></details>
+      <details><summary>Sou menor de idade</summary>
+        <p>Só compre com a autorização dos seus pais ou responsáveis.</p></details>
+      <details><summary>Regras do jogo</summary>
+        <ul>
+          <li>Proibido usar programas de trapaça, bugs de propósito ou contas de outras pessoas.</li>
+          <li>Respeite os outros jogadores no chat. Ofensas, racismo e assédio dão punição.</li>
+          <li>Vender contas ou itens por fora do jogo não é permitido.</li>
+        </ul></details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="ano"></span> Davis of Jones</span>
+    <span id="contatos"></span>
+  </div>
+</footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="box">
+    <button class="x" onclick="fechar()" aria-label="Fechar">×</button>
+    <h3 id="mTitulo">Comprar</h3>
+    <div id="mPreco" style="font-size:24px;font-weight:800;margin:4px 0 6px"></div>
+    <label for="nick">Seu nome no jogo</label>
+    <input id="nick" placeholder="ex.: tadeu" autocomplete="off">
+    <label>Chave PIX</label>
+    <div class="pix"><code id="mPix"></code><button class="btn small" onclick="copiar()">Copiar</button></div>
+    <div class="ok" id="ok"></div>
+    <ol>
+      <li>Pague o valor exato pelo PIX no app do seu banco.</li>
+      <li>Clique em <b>Enviar comprovante</b> e mande o print do pagamento.</li>
+      <li>Um administrador confere e entrega as pérolas na sua conta.</li>
+    </ol>
+    <div class="cta"><a class="btn" id="mEnviar" target="_blank" rel="noopener">Enviar comprovante</a></div>
+  </div>
+</div>
+
+<script>
+/* ===================================================================
+   >>>>>  TROQUE AQUI  <<<<<
+   =================================================================== */
+const CONFIG = {
+  // link do launcher no GitHub (já está certo)
+  launcher: "https://github.com/seaofdavyjones/davis-of-jones/releases/latest/download/DavisOfJones_Launcher.zip",
+  // sua chave PIX (e-mail, CPF, celular ou chave aleatória)
+  pix: "SUA-CHAVE-PIX-AQUI",
+  // WhatsApp com DDI+DDD, só números (ex.: 5511999998888). Deixe "" para não usar.
+  whatsapp: "",
+  // convite do Discord (ex.: https://discord.gg/xxxx). Deixe "" para não usar.
+  discord: "",
+  // pacotes da loja (preço em reais)
+  pacotes: [
+    { nome: "Baú pequeno",   qtd: "10.000 pérolas",  preco: 5,  icone: "perola" },
+    { nome: "Baú do pirata", qtd: "25.000 pérolas",  preco: 10, icone: "perola" },
+    { nome: "Baú do capitão",qtd: "70.000 pérolas",  preco: 25, icone: "perola", destaque: true },
+    { nome: "Tesouro real",  qtd: "150.000 pérolas", preco: 50, icone: "perola" },
+    { nome: "Medalhões da Luz", qtd: "5 Medalhões da Luz (Mapa do Sol)", preco: 10, icone: "img/medalhao_luz.png" },
+  ]
+};
+/* =================================================================== */
+
+const brl = v => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+document.getElementById("ano").textContent = new Date().getFullYear();
+document.querySelectorAll("#btnBaixar, .lnkBaixar").forEach(a => a.href = CONFIG.launcher);
+
+const shop = document.getElementById("shop");
+CONFIG.pacotes.forEach((p, i) => {
+  const el = document.createElement("div");
+  el.className = "pack" + (p.destaque ? " best" : "");
+  const ico = p.icone === "perola" ? '<div class="pearl"></div>' : `<img src="${p.icone}" alt="">`;
+  el.innerHTML = `${p.destaque ? '<span class="ribbon">MAIS VENDIDO</span>' : ''}
+    <div class="ico">${ico}</div>
+    <h3>${p.nome}</h3><p class="qty">${p.qtd}</p>
+    <div class="price">${brl(p.preco)}</div>
+    <button class="btn small" data-i="${i}">Comprar</button>`;
+  el.querySelector("button").onclick = () => abrir(p);
+  shop.appendChild(el);
+});
+
+const c = [];
+if (CONFIG.discord) c.push(`<a href="${CONFIG.discord}" target="_blank" rel="noopener">Discord</a>`);
+if (CONFIG.whatsapp) c.push(`<a href="https://wa.me/${CONFIG.whatsapp}" target="_blank" rel="noopener">WhatsApp</a>`);
+document.getElementById("contatos").innerHTML = c.join(" · ");
+
+let atual = null;
+function abrir(p) {
+  atual = p;
+  document.getElementById("mTitulo").textContent = p.nome + " — " + p.qtd;
+  document.getElementById("mPreco").textContent = brl(p.preco);
+  document.getElementById("mPix").textContent = CONFIG.pix;
+  document.getElementById("ok").textContent = "";
+  atualizarEnvio();
+  document.getElementById("modal").classList.add("open");
+  document.getElementById("nick").focus();
+}
+function fechar() { document.getElementById("modal").classList.remove("open"); }
+function atualizarEnvio() {
+  const nick = document.getElementById("nick").value.trim() || "(meu nome no jogo)";
+  const msg = `Olá! Comprei ${atual.qtd} (${brl(atual.preco)}) no Davis of Jones. Meu nome no jogo: ${nick}. Segue o comprovante do PIX.`;
+  const a = document.getElementById("mEnviar");
+  if (CONFIG.whatsapp) a.href = `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+  else if (CONFIG.discord) a.href = CONFIG.discord;
+  else a.removeAttribute("href");
+}
+document.getElementById("nick").addEventListener("input", atualizarEnvio);
+function copiar() {
+  const t = CONFIG.pix;
+  const done = () => document.getElementById("ok").textContent = "Chave PIX copiada!";
+  if (navigator.clipboard) navigator.clipboard.writeText(t).then(done, () => {});
+  else { const r = document.createRange(); r.selectNode(document.getElementById("mPix")); getSelection().removeAllRanges(); getSelection().addRange(r); document.execCommand("copy"); done(); }
+}
+document.getElementById("modal").addEventListener("click", e => { if (e.target.id === "modal") fechar(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") fechar(); });
+</script>
+</body>
+</html>
